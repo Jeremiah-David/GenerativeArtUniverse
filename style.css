@@ -1,0 +1,30 @@
+body {
+  position: relative;
+  margin: 0;
+}
+
+.ballForm {
+  position: absolute;
+  width: 30%;
+  right: 0;
+  top: 0;
+  z-index: 10; 
+  padding: 1vw 1vw;
+  color:white;
+  background: rgba(0,0,0,.5);
+  text-align: center;
+  font-size: large;
+ 
+  border: .5vw solid transparent;
+  border-image: linear-gradient(to bottom right, #bdb600 0%, #2c90fc 20%, #cc0000 50%, #0d00bd 65%, #03d100 80%, #ecef4e 100%);
+  border-image-slice: 1;
+}
+
+#bg {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+
+

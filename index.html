@@ -1,15 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="style.css">
+  <title>Generative Art Universe</title>
 </head>
 
 <body>
+  <div class="ballForm">
+    <p>Number of Balls</p>
+    <p id="output">0</p>
+    <div class="slidecontainer">
+      <label for="numBalls">Balls (between 0 and 5000)</label>
+      <input type="range" min="0" max="5000" value="0" class="slider" id="numBalls" name="numBalls" />
+      <br>
+      <label for="red">Red Light</label>
+      <input type="range" min="0" max="255" value="255" class="slider" id="red" name="red"
+        onChange="slidertoHexcode()" />
+      <label for="blue">Blue Light</label>
+      <input type="range" min="0" max="255" value="255" class="slider" id="blue" name="blue"
+        onChange="slidertoHexcode()" />
+      <label for="green">Green Light</label>
+      <input type="range" min="0" max="255" value="255" class="slider" id="green" name="green"
+        onChange="slidertoHexcode()" />
 
+    </div>
+  </div>
+
+  <canvas id="bg"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"
+    integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg=="
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="provided.js"></script>
+  <script src="script.js" type="module"></script>
+</body>
 </body>
 
 </html>
