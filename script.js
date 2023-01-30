@@ -1,53 +1,43 @@
-
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.133.1/examples/jsm/controls/OrbitControls";
 
 const loader = new THREE.GLTFLoader();
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
 
 const renderer = new THREE.WebGL1Renderer({
-  canvas: document.querySelector('#bg')
-})
+  canvas: document.querySelector("#bg"),
+});
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(50);
-renderer.render(scene, camera)
+renderer.render(scene, camera);
 
-
-window.createImageBitmap = undefined
-
-loader.load( 'assets/sparrow.glb', function ( ship ) {
-					ship.scene.position.set(0,2,1);
-					scene.add( ship.scene );
-}, undefined, function ( error ) {
-
-	console.error( error );
-
-} );
 const controls = new OrbitControls(camera, renderer.domElement);
 
-const spaceTexture = new THREE.TextureLoader().load('assets/space.webp');
-scene.background = spaceTexture
+const spaceTexture = new THREE.TextureLoader().load("assets/space.webp");
+scene.background = spaceTexture;
 
 const textureLoader = new THREE.TextureLoader();
-const sunTexture = new THREE.TextureLoader().load('assets/2k_sun.jpg');
-const earthTexture = new THREE.TextureLoader().load('assets/2k_earth_clouds.jpg');
+const sunTexture = new THREE.TextureLoader().load("assets/2k_sun.jpg");
 const normalMapTexture = textureLoader.load("assets/normalMap.jpg");
 
-
-const geometryTorus = new THREE.TorusKnotGeometry(12, 3, 100, 200)
+const geometryTorus = new THREE.TorusKnotGeometry(12, 3, 100, 200);
 const materialTorus = new THREE.MeshPhysicalMaterial({
-  color: ('rgb(255,255,255)'),
-  roughness: .9,
+  color: "rgb(255,255,255)",
+  roughness: 0.9,
   metalness: 1,
   clearcoat: 1,
-  map: sunTexture
+  map: sunTexture,
 });
-const torusKnot = new THREE.Mesh(geometryTorus, materialTorus)
-scene.add(torusKnot)
+const torusKnot = new THREE.Mesh(geometryTorus, materialTorus);
+scene.add(torusKnot);
 torusKnot.position.set(150, 1, 35);
-
 
 const pointLight = new THREE.PointLight(0xffffff, 2);
 pointLight.position.set(-10, 10, 4);
@@ -58,56 +48,53 @@ spotLight.distance = 50;
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
 
-scene.add(spotLight, directionalLight, pointLight)
+scene.add(spotLight, directionalLight, pointLight);
 
-let addingBall = true
-const ball = null
+let addingBall = true;
+const ball = null;
 
 function addBall() {
   if (addingBall) {
     const geometryBall = new THREE.SphereGeometry(1, 24, 24);
-    const materialBall = new
-      THREE.MeshPhysicalMaterial(
-        {
-        
-          roughness: Math.random(),
-          transmission: Math.random(),
-          thickness: .5,
-          metalness: Math.random(),
-          clearcoat: Math.random(),
-          normalMap: normalMapTexture,
-          color: (
-            `rgb(${randomNum(0, 255)},${randomNum(0, 255)} , ${randomNum(0, 255)})`)
-        })
-  
-    const ball = new THREE.Mesh(geometryBall, materialBall)
-    let x = randomNum(-50, 50)
-    let y = randomNum(-50, 50)
-    let z = randomNum(-50, 50)
-    ball.position.set(x, y, z)
-    scene.add(ball)
+    const materialBall = new THREE.MeshPhysicalMaterial({
+      roughness: Math.random(),
+      transmission: Math.random(),
+      thickness: 0.5,
+      metalness: Math.random(),
+      clearcoat: Math.random(),
+      normalMap: normalMapTexture,
+      color: `rgb(${randomNum(0, 255)},${randomNum(0, 255)} , ${randomNum(
+        0,
+        255
+      )})`,
+    });
+
+    const ball = new THREE.Mesh(geometryBall, materialBall);
+    let x = randomNum(-50, 50);
+    let y = randomNum(-50, 50);
+    let z = randomNum(-50, 50);
+    ball.position.set(x, y, z);
+    scene.add(ball);
   } else {
-    scene.remove(scene.children[scene.children.length - 1])
+    scene.remove(scene.children[scene.children.length - 1]);
   }
 }
 
-let ballCount = 0
+let ballCount = 0;
 function ballFill() {
-
   if (ballCount == numBalls.value) {
-    return
+    return;
   } else if (ballCount > numBalls.value) {
     for (ballCount; ballCount > numBalls.value; ballCount--) {
-      addingBall = false
-      directionalLight.color.setHex( 0x0000ff );
-      spotLight.color.setHex( 0x0000ff );
-      addBall()
+      addingBall = false;
+      directionalLight.color.setHex(0x0000ff);
+      spotLight.color.setHex(0x0000ff);
+      addBall();
     }
   } else {
-       for (ballCount; ballCount < numBalls.value; ballCount++) {
-        addingBall = true
-        addBall()    
-
+    for (ballCount; ballCount < numBalls.value; ballCount++) {
+      addingBall = true;
+      addBall();
     }
   }
 }
@@ -121,13 +108,10 @@ function animate() {
 
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
-  pointLight.color.setHex( slidertoHexcode ());
-  directionalLight.color.setHex( slidertoHexcode ());
-  spotLight.color.setHex( slidertoHexcode ()); 
-  
-  ballFill()
+  pointLight.color.setHex(slidertoHexcode());
+  directionalLight.color.setHex(slidertoHexcode());
+  spotLight.color.setHex(slidertoHexcode());
+
+  ballFill();
 }
-animate()
-
-
-
+animate();
